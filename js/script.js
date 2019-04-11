@@ -55,7 +55,7 @@ function pedirDatosListaPostUsuarios(idUsuario, callbackConsultarPostOK){
   
 	  var respuesta = [];
   
-	  postUsuario.forEach(post => {
+	  postUsuario.map(post => {
 			if (post.userId === idUsuario) {
 			  respuesta.push(post);
 			}	
@@ -75,14 +75,18 @@ function verPostsUsuario(idUsuario) {
 	divContenedorListaPosts.innerHTML = "";
   
 	// Se crea variable para guardar el array de posts, se llena con la función de consulta
-	var listaPosts = pedirDatosListaPostUsuarios(idUsuario, function callback(datos) {
+	pedirDatosListaPostUsuarios(idUsuario, function callback(datos) {
 	  // Se recorre el array de posts y para cada uno se crea el elemento en pantalla
 	  for (var i = 0; i < datos.length; i++) {
-  
+		
 		var nuevoDiv = document.createElement("div");
 		nuevoDiv.setAttribute("class", "post");
-		var textDiv = document.createTextNode(JSON.stringify(datos[i]));
+		var textDiv = document.createTextNode(JSON.stringify(datos[i].title));
 		nuevoDiv.append(textDiv);
+
+		nuevoDiv.addEventListener("click", function(){
+			console.log("llegue aca")
+		})
 		divContenedorListaPosts.appendChild(nuevoDiv);
 	  }
 	})
