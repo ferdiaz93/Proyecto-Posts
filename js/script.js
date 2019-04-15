@@ -78,18 +78,17 @@ function verPostsUsuario(idUsuario) {
 	// Se crea variable para guardar el array de posts, se llena con la función de consulta
 	pedirDatosListaPostUsuarios(idUsuario, function callback(datos) {
 	  // Se recorre el array de posts y para cada uno se crea el elemento en pantalla
-	  for (var i = 0; i < datos.length; i++) {
-		
+	  for (let i = 0; i < datos.length; i++) {
+	
 		var nuevoDiv = document.createElement("div");
 		nuevoDiv.setAttribute("class", "post");
 		var textDiv = document.createTextNode(JSON.stringify(datos[i].title));
 		nuevoDiv.append(textDiv);
 
 		nuevoDiv.addEventListener("click", function(){
-			
 			/// FALTA EJECUTAR verPostCompleto PASANDOLE EL idPost COMO PARAMETRO
-			console.log(idUsuario)
-			verPostCompleto(idUsuario)
+			console.log(i)
+			verPostCompleto(datos[i].id)
 		})
 		divContenedorListaPosts.appendChild(nuevoDiv);
 	  }
