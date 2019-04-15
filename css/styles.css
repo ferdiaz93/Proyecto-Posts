@@ -1,6 +1,14 @@
-.contenedor-botones-usuario {}
+.contenedor-botones-usuario {
+    display: flex;
+    background-color: red;
+    flex-direction: column;
+    width: 30%;
+    height: 100%;
+}
 
-.contenedor-lista-posts {}
+.contenedor-lista-posts {
+    color:red;
+}
 
 .boton-usuario {
     background-color: rgb(5, 163, 190);
@@ -15,6 +23,5 @@
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 8px;
-}
 
-.post {}
+}

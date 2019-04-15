@@ -1,6 +1,6 @@
 var divContenedorBotonesUsuario = document.getElementById('div-contenedor-botones-usuario');
 var divContenedorListaPosts = document.getElementById('div-contenedor-lista-posts');
-
+var divContenedorComentarios = document.getElementById("div-contenedor-comentarios-posts");
 pedirDatos(agregarBotones);
 
 
@@ -51,10 +51,10 @@ function pedirDatosListaPostUsuarios(idUsuario, callbackConsultarPostOK){
 	requestLista.onload = function () {
 	  
 	  var postUsuario = JSON.parse(requestLista.responseText);
-	  console.log("este es mi postUsuario", postUsuario);
-  
+
+	
 	  var respuesta = [];
-  
+    
 	  postUsuario.map(post => {
 			if (post.userId === idUsuario) {
 			  respuesta.push(post);
@@ -63,7 +63,7 @@ function pedirDatosListaPostUsuarios(idUsuario, callbackConsultarPostOK){
 	  callbackConsultarPostOK(respuesta);
 	}
   
-	requestLista.open("GET", "https://jsonplaceholder.typicode.com/posts?UserId=" + idUsuario)
+	requestLista.open("GET", "https://jsonplaceholder.typicode.com/posts?userId=" + idUsuario)
 	requestLista.send()
   
 
@@ -72,6 +72,7 @@ function pedirDatosListaPostUsuarios(idUsuario, callbackConsultarPostOK){
 
 function verPostsUsuario(idUsuario) {
 	// Se vacía el div de posts por si hay elementos previos.
+
 	divContenedorListaPosts.innerHTML = "";
   
 	// Se crea variable para guardar el array de posts, se llena con la función de consulta
@@ -85,10 +86,49 @@ function verPostsUsuario(idUsuario) {
 		nuevoDiv.append(textDiv);
 
 		nuevoDiv.addEventListener("click", function(){
-			console.log("llegue aca")
+			
+			/// FALTA EJECUTAR verPostCompleto PASANDOLE EL idPost COMO PARAMETRO
+			console.log(idUsuario)
+			verPostCompleto(idUsuario)
 		})
 		divContenedorListaPosts.appendChild(nuevoDiv);
 	  }
 	})
   }
   
+
+  // funcion que pide los datos de los comentarios
+  function consultarComentarios(idPost, callback){
+	var request = new XMLHttpRequest();
+
+	request.onload = function(){
+
+		var contenidoComentarios = JSON.parse(request.responseText);
+		callback(contenidoComentarios);
+	}
+
+	request.open("GET", "https://jsonplaceholder.typicode.com/comments?postId=" + idPost);
+	request.send();
+  }
+
+//funcion que crea los elementos necesarios para mostrar el User y el Comment
+function verPostCompleto(idPost){
+	divContenedorComentarios.innerHTML = "";
+
+	consultarComentarios(idPost, function callback(datos){
+
+		for(let i = 0 ; i < datos.length ; i++){
+			var nuevoTitulo = document.createElement("h2");
+			var nuevoParrafo = document.createElement("p");
+			var textoComentario = document.createTextNode(datos[i].body);
+			var textoUser = document.createTextNode(datos[i].name);
+
+			nuevoTitulo.appendChild(textoUser);
+			nuevoParrafo.appendChild(textoComentario);
+
+			
+			divContenedorComentarios.appendChild(nuevoTitulo);
+			divContenedorComentarios.appendChild(nuevoParrafo);
+		}
+	})
+}
