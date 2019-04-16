@@ -1,6 +1,5 @@
 .contenedor-botones-usuario {
     display: flex;
-    background-color: red;
     flex-direction: column;
     width: 30%;
     height: 100%;
@@ -24,4 +23,8 @@
     cursor: pointer;
     border-radius: 8px;
 
+}
+
+.contenedor-body-posts{
+    color:blue;
 }

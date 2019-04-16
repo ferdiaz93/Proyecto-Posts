@@ -1,6 +1,8 @@
-var divContenedorBotonesUsuario = document.getElementById('div-contenedor-botones-usuario');
-var divContenedorListaPosts = document.getElementById('div-contenedor-lista-posts');
-var divContenedorComentarios = document.getElementById("div-contenedor-comentarios-posts");
+const divContenedorBotonesUsuario = document.getElementById('div-contenedor-botones-usuario');
+const divContenedorListaPosts = document.getElementById('div-contenedor-lista-posts');
+const divContenedorComentarios = document.getElementById("div-contenedor-comentarios-posts");
+const divContenedorBodyPost = document.getElementById('div-contenedor-body-posts');
+
 pedirDatos(agregarBotones);
 
 
@@ -86,9 +88,8 @@ function verPostsUsuario(idUsuario) {
 		nuevoDiv.append(textDiv);
 
 		nuevoDiv.addEventListener("click", function(){
-			/// FALTA EJECUTAR verPostCompleto PASANDOLE EL idPost COMO PARAMETRO
-			console.log(i)
-			verPostCompleto(datos[i].id)
+
+			verPostCompleto(datos[i].id, datos[i].body)
 		})
 		divContenedorListaPosts.appendChild(nuevoDiv);
 	  }
@@ -111,13 +112,20 @@ function verPostsUsuario(idUsuario) {
   }
 
 //funcion que crea los elementos necesarios para mostrar el User y el Comment
-function verPostCompleto(idPost){
+function verPostCompleto(idPost, body){
 	divContenedorComentarios.innerHTML = "";
+	divContenedorBodyPost.innerHTML = "";
+	//agregamos el body del post
+	var nuevoParrafoBody = document.createElement("p");
+	var textoBody = document.createTextNode(body);
+	nuevoParrafoBody.appendChild(textoBody);
+	divContenedorBodyPost.appendChild(nuevoParrafoBody);
+	///
 
 	consultarComentarios(idPost, function callback(datos){
 
 		for(let i = 0 ; i < datos.length ; i++){
-			var nuevoTitulo = document.createElement("h2");
+			var nuevoTitulo = document.createElement("h4");
 			var nuevoParrafo = document.createElement("p");
 			var textoComentario = document.createTextNode(datos[i].body);
 			var textoUser = document.createTextNode(datos[i].name);
