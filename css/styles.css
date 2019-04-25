@@ -1,30 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
 .contenedor-botones-usuario {
+    font-family: 'Roboto', sans-serif;
     display: flex;
-    flex-direction: column;
-    width: 30%;
-    height: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 20%;
+    height: 0%;
 }
 
-.contenedor-lista-posts {
-    color:red;
-}
 
 .boton-usuario {
+    font-family: 'Roboto', sans-serif;    
     background-color: rgb(5, 163, 190);
-    /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 8px;
+    
+}
+.contenido-completo{
+    display:flex;
 
+}
+
+.contenido-body-comentarios{
+    display: flex;
+    flex-direction: column;
+}
+.contenedor-lista-posts {
+    display:flex;
+    font-family: 'Roboto', sans-serif;
+    color:red;
+    width: 400px;
+    flex-direction: column;
+    margin-right: 30px;
+}
+
+.post{
+    font-family: 'Roboto', sans-serif;
+    padding: 15px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: black;
 }
 
 .contenedor-body-posts{
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
     color:blue;
+    line-height: 1.6;
 }
+
+.contenedor-comentarios-posts{
+    background-color: rgb(216, 215, 215);
+}
+
+
+.nombre-comentario{
+    margin-top: 30px;
+    font-size: 15px;
+    text-decoration: underline;
+    line-height: 1.6;
+    font-weight: bold;
+}
+
+.body-comenario{
+    line-height: 1.6;
+}
+

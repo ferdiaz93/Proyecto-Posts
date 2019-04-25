@@ -4,22 +4,6 @@ const divContenedorComentarios = document.getElementById("div-contenedor-comenta
 const divContenedorBodyPost = document.getElementById('div-contenedor-body-posts');
 
 pedirDatos(agregarBotones);
-
-
-function pedirDatos(cbRequest) {
-	var request = new XMLHttpRequest();
-
-	request.onload = function() {
-		var datosCambiados = JSON.parse(request.responseText);
-
-		cbRequest(datosCambiados);
-		//        cbRequest(JSON.parse(request.responseText))
-	};
-
-	request.open('GET', 'https://jsonplaceholder.typicode.com/users');
-	request.send();
-}
-
 //Funcion que agrega un boton por cada elemento que se encuentre en mi array listaUsuarios
 function agregarBotones(datos) {
 	var listaUsuarios = datos;
@@ -37,39 +21,14 @@ function crearBotones(nombre, id) {
 	var texto = document.createTextNode(nombre);
 	boton.appendChild(texto);
 
-	boton.addEventListener('click', mostrarPost);
-
-	function mostrarPost() {
+	boton.addEventListener('click', function() {
 		verPostsUsuario(id);
-	}
+	} );
 
 	divContenedorBotonesUsuario.appendChild(boton);
 }
 
-//funcion que pide los datos de los posts
-function pedirDatosListaPostUsuarios(idUsuario, callbackConsultarPostOK){
-	var requestLista = new XMLHttpRequest();
-  
-	requestLista.onload = function () {
-	  
-	  var postUsuario = JSON.parse(requestLista.responseText);
 
-	
-	  var respuesta = [];
-    
-	  postUsuario.map(post => {
-			if (post.userId === idUsuario) {
-			  respuesta.push(post);
-			}	
-	  	});
-	  callbackConsultarPostOK(respuesta);
-	}
-  
-	requestLista.open("GET", "https://jsonplaceholder.typicode.com/posts?userId=" + idUsuario)
-	requestLista.send()
-  
-
-}
 
 
 function verPostsUsuario(idUsuario) {
@@ -97,22 +56,10 @@ function verPostsUsuario(idUsuario) {
   }
   
 
-  // funcion que pide los datos de los comentarios
-  function consultarComentarios(idPost, callback){
-	var request = new XMLHttpRequest();
-
-	request.onload = function(){
-
-		var contenidoComentarios = JSON.parse(request.responseText);
-		callback(contenidoComentarios);
-	}
-
-	request.open("GET", "https://jsonplaceholder.typicode.com/comments?postId=" + idPost);
-	request.send();
-  }
-
+  
 //funcion que crea los elementos necesarios para mostrar el User y el Comment
 function verPostCompleto(idPost, body){
+
 	divContenedorComentarios.innerHTML = "";
 	divContenedorBodyPost.innerHTML = "";
 	//agregamos el body del post
@@ -122,11 +69,15 @@ function verPostCompleto(idPost, body){
 	divContenedorBodyPost.appendChild(nuevoParrafoBody);
 	///
 
+
+
 	consultarComentarios(idPost, function callback(datos){
 
 		for(let i = 0 ; i < datos.length ; i++){
-			var nuevoTitulo = document.createElement("h4");
+			var nuevoTitulo = document.createElement("h3");
+			nuevoTitulo.setAttribute("class", "nombre-comentario");
 			var nuevoParrafo = document.createElement("p");
+			nuevoParrafo.setAttribute("class", "body-comentario")
 			var textoComentario = document.createTextNode(datos[i].body);
 			var textoUser = document.createTextNode(datos[i].name);
 
